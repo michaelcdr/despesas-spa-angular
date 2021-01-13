@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="card-header">
+        <h5>Últimas despesas cadastradas</h5>
+    </div>
+    <div class="card-body">
+
+        <a href="/despesa/cadastrar" class="btn btn-primary btn-sm">
+            Cadastrar
+        </a>
+
+        <table class="table table-striped table-bordered mt-2 mb-2">
+            <thead>
+                <tr>
+                    <th width="160px"></th>
+                    <th>Valor</th>
+                    <th>Inicia em</th>
+                    <th>Cadastrada em</th>
+                    <th>Título</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let despesa of despesas">
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm">
+                            Remover
+                        </button>
+                        <a href="/despesa/editar/{{despesa.id}}" class="btn btn-primary btn-sm ml-2">
+                            Editar
+                        </a>
+                    </td>
+                    <td>{{despesa.valorFormatado}}</td>
+                    <td>{{despesa.dataInicioFormatada}}</td>
+                    <td>{{despesa.dataCadastroFormatada}}</td>
+                    <td>
+                        {{despesa.titulo}} - {{despesa.descritivo}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/despesa/cadastrar" class="btn btn-primary btn-sm">
+            Cadastrar
+        </a>
+    </div>
+</div>
