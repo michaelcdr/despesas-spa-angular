@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Despesa } from 'src/app/models/despesa';
-import { DespesaWidgetService } from '../despesa.widget.service';
 
 @Component({
   selector: 'app-lista-de-despesas',
@@ -9,29 +9,26 @@ import { DespesaWidgetService } from '../despesa.widget.service';
 })
 export class ListaDeDespesasComponent implements OnInit {
 
-  despesas: Despesa[];
+  despesas: Despesa[] = [];
+  filtro: string = '';
 
-  constructor(private service: DespesaWidgetService) {
+  constructor(private activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
-    this.obterTodas();
+
+    this.despesas = this.activatedRoute.snapshot.data.despesas;
+
+    this.formatarDespesas();
   }
 
-  private obterTodas() {
-    this.service.getDespesas().subscribe(
-      (despesas) => {
-        this.despesas = <Despesa[]>despesas;
-
-        this.despesas.forEach(despesa => {
-          despesa.valorFormatado = this.formatarDados(despesa.valor);
-          despesa.dataCadastroFormatada = this.formatarData(despesa.dataCadastro);
-          despesa.dataInicioFormatada = this.formatarData(despesa.dataInicio);
-        });
-      },
-      err => console.log("Erro ocorrido " + err.message)
-    );
+  private formatarDespesas(): void {
+    this.despesas.forEach(despesa => {
+      despesa.valorFormatado = this.formatarDados(despesa.valor);
+      despesa.dataCadastroFormatada = this.formatarData(despesa.dataCadastro);
+      despesa.dataInicioFormatada = this.formatarData(despesa.dataInicio);
+    });
   }
 
   private formatarData(data: string): string {

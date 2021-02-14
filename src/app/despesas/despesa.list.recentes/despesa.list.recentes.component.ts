@@ -9,7 +9,7 @@ import { DespesaWidgetService } from '../despesa.widget.service';
 export class DespesaListRecentes implements OnInit {
 
     despesas: Despesa[];
-
+    filter: string;
     constructor(private service: DespesaWidgetService) {
 
     }
